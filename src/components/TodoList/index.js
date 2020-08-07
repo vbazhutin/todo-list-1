@@ -13,10 +13,22 @@ export const TodoList = () => {
     })()
   }, [])
 
-  const handleCheckbox = ({target}) => {
-    console.log(target.checked, target.parentElement.dataset.id)
-    // TODO: If checked...find the element in todos and change 'checked' to true
+  const handleCheckbox = ({ target }) => {
+    const targetID = target.parentElement.dataset.id
+    setTodos((currentTodos) => {
+      // Find the correct task
+      const found = currentTodos.find(({ id }) => id === Number(targetID))
+      found.completed = true
 
+      // Get an Array of all other tasks
+      const otherTodos = currentTodos.filter(
+        ({ id }) =>
+          // Use JSON.Parse() to 'compare objects'
+          JSON.parse(id) !== JSON.parse(targetID)
+      )
+
+      return otherTodos.concat(found)
+    })
   }
 
   return (
