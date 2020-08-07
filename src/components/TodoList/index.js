@@ -13,8 +13,14 @@ export const TodoList = () => {
     })()
   }, [])
 
+  const handleCheckbox = ({target}) => {
+    console.log(target.checked, target.parentElement.dataset.id)
+    // TODO: If checked...find the element in todos and change 'checked' to true
+
+  }
+
   return <main>
-    <List todos={todos} />
+    <List todos={todos} handler={handleCheckbox}/>
     {/* <Add /> */}
   </main>
 }
