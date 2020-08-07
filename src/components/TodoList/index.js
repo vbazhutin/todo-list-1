@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import {List} from "./List"
+import { List } from "./List"
 
 import api from "api"
 
@@ -8,7 +8,7 @@ export const TodoList = () => {
   const [todos, setTodos] = useState([])
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       setTodos(await api.index())
     })()
   }, [])
@@ -19,8 +19,10 @@ export const TodoList = () => {
 
   }
 
-  return <main>
-    <List todos={todos} handler={handleCheckbox}/>
-    {/* <Add /> */}
-  </main>
+  return (
+    <main>
+      <List todos={todos} handler={handleCheckbox} />
+      {/* <Add /> */}
+    </main>
+  )
 }
