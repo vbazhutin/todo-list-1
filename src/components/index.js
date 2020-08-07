@@ -1,1 +1,1 @@
-export {TodoList as List} from "./TodoList"
+export {TodoList} from "./TodoList"
