@@ -14,13 +14,15 @@ export const TodoList = () => {
   }, [])
 
   const handleCheckbox = ({ target }) => {
-    const targetID = target.parentElement.dataset.id
     setTodos(
       // TODO: Verify that it's 🙆🏽‍♂️ to not use the previous state and to just access state directly
       () => {
         // Find the correct task
-        const found = todos.find(({ id }) => id === Number(targetID))
-        found.completed = true
+        const found = todos.find(
+          ({ id }) => id === Number(target.parentElement.dataset.id)
+        )
+
+        found.completed = target.checked
 
         return todos.map((todo) => (todo.id === found.id ? found : todo))
       }
