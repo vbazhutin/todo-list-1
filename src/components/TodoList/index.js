@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 
+import {AddForm as Add} from "./AddForm"
 import { List } from "./List"
+
 
 import api from "api"
 
@@ -32,7 +34,7 @@ export const TodoList = () => {
   return (
     <main>
       <List todos={todos} handler={handleCheckbox} />
-      {/* <Add /> */}
+      <Add />
     </main>
   )
 }
