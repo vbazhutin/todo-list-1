@@ -14,7 +14,7 @@ export const TodoList = () => {
     })()
   }, [])
 
-  const handlerAdd = (event) => {
+  const handleAdd = (event) => {
     event.preventDefault()
 
     const newTodo = {
@@ -45,7 +45,8 @@ export const TodoList = () => {
   return (
     <main>
       <List todos={todos} handler={handleCheckbox} />
-      <Add handler={handlerAdd} />
+        todos={todos}
+      <Add handler={handleAdd} />
     </main>
   )
 }
