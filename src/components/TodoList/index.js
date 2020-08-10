@@ -42,10 +42,17 @@ export const TodoList = () => {
     })
   }
 
+  const handleTrash = ({ target }) => {
+    setTodos(() => todos.filter(({id}) => String(id) !== target.closest("li").dataset.id))
+  }
+
   return (
     <main>
-      <List todos={todos} handler={handleCheckbox} />
+      <List
         todos={todos}
+        checkboxHandler={handleCheckbox}
+        trashHandler={handleTrash}
+      />
       <Add handler={handleAdd} />
     </main>
   )
