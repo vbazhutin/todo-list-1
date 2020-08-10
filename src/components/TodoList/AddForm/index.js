@@ -1,8 +1,9 @@
+import PropTypes from "prop-types"
 import React from "react"
 
-export const AddForm = () => {
+export const AddForm = ({ handler }) => {
   return (
-    <form className="mt-4">
+    <form className="mt-4" onSubmit={handler}>
       <div className="field">
         <div className="control">
           <input
@@ -17,3 +18,5 @@ export const AddForm = () => {
     </form>
   )
 }
+
+AddForm.propTypes = { handler: PropTypes.func }
