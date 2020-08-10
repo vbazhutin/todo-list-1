@@ -30,7 +30,7 @@ export const TodoList = () => {
     setTodos(() => {
       // Find the correct task
       const found = todos.find(
-        ({ id }) => id === Number(target.parentElement.dataset.id)
+        ({ id }) => id === Number(target.closest("li").dataset.id)
       )
 
       found.completed = target.checked
