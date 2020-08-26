@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 
 import { NavBar as Nav, TodoList } from "./components"
 
@@ -6,7 +6,7 @@ import "./App.scss"
 
 export const App = () => {
   return (
-    <Fragment>
+    <>
       <Nav />
       <div className="hero is-primary">
         <div className="hero-body">
@@ -19,6 +19,6 @@ export const App = () => {
       <div className="wrapper">
         <TodoList />
       </div>
-    </Fragment>
+    </>
   )
 }
