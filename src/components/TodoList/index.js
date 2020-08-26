@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react"
+import React, { useReducer } from "react"
 
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
@@ -23,8 +23,6 @@ function reducer(state, action) {
       return state
   }
 }
-
-// import api from "api"
 
 export const TodoList = () => {
   const [todos, dispatch] = useReducer(reducer, [])
