@@ -2,7 +2,7 @@ import React, { Fragment } from "react"
 
 import { TodoList } from "./components"
 
-import "./App.css"
+import "./App.scss"
 
 export const App = () => {
   return (
