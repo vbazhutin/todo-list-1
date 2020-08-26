@@ -1,49 +1,52 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useReducer, useState } from "react"
 
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
 
-import api from "api"
+function reducer(state, action) {
+  switch (action.type) {
+    case "add":
+      return state.concat({
+        id: state.length + 1,
+        completed: false,
+        text: action.text,
+      })
+    case "toggle-completion": // Wrap 'case' in blocks for proper scoping of lexical bindings (https://eslint.org/docs/rules/no-case-declarations)
+    {
+      const { toggledTodo } = action
+      return state.filter(({ id }) => id !== toggledTodo.id).concat(toggledTodo)
+      }
+    case "trash":
+      return state.filter(({id}) => id !== action.id)
+    default:
+      return state
+  }
+}
 
 export const TodoList = () => {
-  const [todos, setTodos] = useState([])
-
-  useEffect(() => {
-    ;(async () => {
-      setTodos(await api.index())
-    })()
-  }, [])
+  const [todos, dispatch] = useReducer(reducer, [])
 
   const handleAdd = (event) => {
     event.preventDefault()
-
-    const newTodo = {
-      id: todos.length + 1,
-      completed: false,
-      text: event.target.elements[0].value,
-    }
-
-    setTodos(() => todos.concat(newTodo))
+    dispatch({ type: 'add', text: event.target.elements[0].value})
   }
 
   const handleCheckbox = ({ target }) => {
-    setTodos(() => {
-      // Find the correct task
-      const found = todos.find(
-        ({ id }) => id === Number(target.closest("li").dataset.id)
-      )
+     const toggledTodo = todos.find(
+       ({ id }) => id === Number(target.closest("li").dataset.id)
+     )
 
-      found.completed = target.checked
+    toggledTodo.completed = target.checked
+    dispatch({type: 'toggle-completion', toggledTodo})
 
-      return todos.map((todo) =>
-        // Once we match the 'todo' in the current 'todos' with the updated 'found', we can replace it with the newly 'completed'/'incompleted' todo
-        todo.id === found.id ? found : todo
-      )
-    })
   }
 
   const handleTrash = ({ target }) => {
-    setTodos(() => todos.filter(({id}) => String(id) !== target.closest("li").dataset.id))
+    dispatch({type: 'trash', id: Number(target.closest("li").dataset.id)})
+  }
+
+  const handleValue = ({ target: {value} }) => {
+    setFormVal(value)
   }
 
   return (
@@ -53,7 +56,7 @@ export const TodoList = () => {
         checkboxHandler={handleCheckbox}
         trashHandler={handleTrash}
       />
-      <Add handler={handleAdd} />
+      <Add changeHandler={handleValue} submitHandler={handleAdd} value={formVal}/>
     </main>
   )
 }
