@@ -7,11 +7,7 @@ export const NavBar = () => {
 
   const handleClick = () => {
     setActiveClass(prevActiveClass => {
-      if (prevActiveClass) {
-        setActiveClass(null)
-      } else {
-        setActiveClass(true)
-      }
+      return !prevActiveClass
     })
   }
 
