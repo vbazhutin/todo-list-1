@@ -15,7 +15,7 @@ export const NavBar = () => {
     })
   }
 
-  let burgerClassName = "navbar-burger burger"
+  let burgerClassName = "button navbar-burger burger"
   let navBarClassName = "navbar-menu"
 
   burgerClassName = active ? burgerClassName += "is-active" : burgerClassName
@@ -24,10 +24,11 @@ export const NavBar = () => {
   return (
     <nav className="navbar is-transparent">
       <div className="navbar-brand">
-        <a className="navbar-item" href="https://bulma.io">
-          <img src={logo} alt="Todo Logo made by freepik" width="112" height="28" />
+        {/* Add padding to make the clickable area for usability. */}
+        <a className="navbar-item pa-2" href="https://bulma.io">
+          <img src={logo} alt="Todo Logo made by freepik" width="28"/>
         </a>
-        <div
+        <button
           className={burgerClassName}
           data-target="navbarExampleTransparentExample"
           onClick={handleClick}
@@ -35,7 +36,7 @@ export const NavBar = () => {
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
 
       <div id="navbarExampleTransparentExample" className={navBarClassName}>
