@@ -11,42 +11,42 @@ function reducer(state, action) {
         completed: false,
         text: action.text,
       })
-    case "toggle-completion": // Wrap 'case' in blocks for proper scoping of lexical bindings (https://eslint.org/docs/rules/no-case-declarations)
-    {
+    case "toggle-completion": {
+      // Wrap 'case' in blocks for proper scoping of lexical bindings (https://eslint.org/docs/rules/no-case-declarations)
       const { toggledTodo } = action
+      // 'filter' out all of the other 'todos' and then 're-add' the toggledTodo (with the updated 'completed')
       return state.filter(({ id }) => id !== toggledTodo.id).concat(toggledTodo)
-      }
+    }
     case "trash":
-      return state.filter(({id}) => id !== action.id)
+      return state.filter(({ id }) => id !== action.id)
     default:
       return state
   }
 }
+
+// import api from "api"
 
 export const TodoList = () => {
   const [todos, dispatch] = useReducer(reducer, [])
 
   const handleAdd = (event) => {
     event.preventDefault()
-    dispatch({ type: 'add', text: event.target.elements[0].value})
+    dispatch({ type: "add", text: event.target.elements[0].value })
   }
 
   const handleCheckbox = ({ target }) => {
-     const toggledTodo = todos.find(
-       ({ id }) => id === Number(target.closest("li").dataset.id)
-     )
+    const toggledTodo =
+      // Go through the current 'todos' and find the one whose id matches the one that was clicked on (using the closest 'li' to get that 'id'.)
+      todos.find(
+      ({ id }) => id === Number(target.closest("li").dataset.id)
+    )
 
     toggledTodo.completed = target.checked
-    dispatch({type: 'toggle-completion', toggledTodo})
-
+    dispatch({ type: "toggle-completion", toggledTodo })
   }
 
   const handleTrash = ({ target }) => {
-    dispatch({type: 'trash', id: Number(target.closest("li").dataset.id)})
-  }
-
-  const handleValue = ({ target: {value} }) => {
-    setFormVal(value)
+    dispatch({ type: "trash", id: Number(target.closest("li").dataset.id) })
   }
 
   return (
@@ -56,7 +56,7 @@ export const TodoList = () => {
         checkboxHandler={handleCheckbox}
         trashHandler={handleTrash}
       />
-      <Add changeHandler={handleValue} submitHandler={handleAdd} value={formVal}/>
+      <Add handler={handleAdd} />
     </main>
   )
 }
