@@ -61,20 +61,14 @@ export const NavBar = () => {
                 className="button is-primary"
                 href="https://github.com/jgthms/bulma/releases/download/0.9.0/bulma-0.9.0.zip"
               >
-                <span className="icon">
-                  <i className="fas fa-download"></i>
-                </span>
                 <span>Login</span>
               </a>
-            </p>
-            <p className="control">
+            </div>
+            <div className="control">
               <a
                 className="button is-primary"
                 href="https://github.com/jgthms/bulma/releases/download/0.9.0/bulma-0.9.0.zip"
               >
-                <span className="icon">
-                  <i className="fas fa-download"></i>
-                </span>
                 <span>Create Account</span>
               </a>
             </div>
