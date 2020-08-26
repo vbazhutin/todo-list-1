@@ -1,12 +1,13 @@
 import React, { Fragment } from "react"
 
-import { TodoList } from "./components"
+import { NavBar as Nav, TodoList } from "./components"
 
 import "./App.scss"
 
 export const App = () => {
   return (
     <Fragment>
+      <Nav />
       <div className="hero is-primary">
         <div className="hero-body">
           <div className="container">
