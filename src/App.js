@@ -1,24 +1,30 @@
 import React from "react"
 
-import { NavBar as Nav, TodoList } from "./components"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+
+import { NavBar as Nav, TodoList, Home, About, Contact } from "./components"
 
 import "./App.scss"
 
 export const App = () => {
   return (
-    <>
+    <Router>
       <Nav />
-      <div className="hero is-primary">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="has-text-centered is-uppercase	title">To Do List</h1>
-          </div>
-        </div>
-      </div>
+      <Route exact={true} path="/">
+        <Home />
+      </Route>
 
-      <div className="wrapper">
-        <TodoList />
-      </div>
-    </>
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/contact">
+          <Contact />
+        </Route>
+      </Switch>
+
+      {/* TODO: Move this behind 'login' system. */}
+      <TodoList />
+    </Router>
   )
 }
