@@ -32,6 +32,7 @@ export const TodoList = () => {
   const handleAdd = (event) => {
     event.preventDefault()
     dispatch({ type: "add", text: event.target.elements[0].value })
+    event.target.reset()
   }
 
   const handleCheckbox = ({ target }) => {
