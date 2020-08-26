@@ -56,7 +56,7 @@ export const NavBar = () => {
       <div className="navbar-end">
         <div className="navbar-item">
           <div className="field is-grouped">
-            <p className="control">
+            <div className="control">
               <a
                 className="button is-primary"
                 href="https://github.com/jgthms/bulma/releases/download/0.9.0/bulma-0.9.0.zip"
@@ -77,7 +77,7 @@ export const NavBar = () => {
                 </span>
                 <span>Create Account</span>
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </div>
