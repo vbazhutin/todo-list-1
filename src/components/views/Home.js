@@ -25,5 +25,10 @@ export const Home = () => (
         </p>
       </div>
     </section>
+
+    <div>
+      <div className="divider">Let&apos;s Connect!</div>
+    </div>
+
   </>
 )
