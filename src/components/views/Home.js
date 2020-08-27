@@ -45,7 +45,7 @@ export const Home = () => (
       <div className="content has-text-centered">
         <p>
           <strong>Todo List by&nbsp;</strong>
-          <a href="https://codefinity.tech" target="_blank" rel="noreferrer">
+          <a href="https://codefinity.tech" target="_blank" rel="noopener noreferrer">
             CodeFinity
           </a>
         </p>
@@ -53,7 +53,7 @@ export const Home = () => (
           <a
             href="https://github.com/manavm1990"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="level-item mx-2"
           >
             <FontAwesomeIcon icon={["fab", "github"]} />
@@ -61,7 +61,7 @@ export const Home = () => (
           <a
             href="https://www.linkedin.com/in/manavm1990/"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             className="level-item mx-2"
           >
             <FontAwesomeIcon icon={["fab", "linkedin"]} />
@@ -70,7 +70,7 @@ export const Home = () => (
             className="level-item mx-2"
             href="https://twitter.com/GoCodeFinity"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             <FontAwesomeIcon icon={["fab", "twitter"]} />
           </a>
