@@ -1,8 +1,8 @@
 import React from "react"
 
 export const About = () => (
-  <>
-    <h1>About Todos</h1>
+  <section className="px-3 py-3">
+    <h1 className="title">About Todos</h1>
     <p>
       Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci minus
       rerum reiciendis esse quibusdam fuga numquam porro atque facilis explicabo
@@ -21,5 +21,5 @@ export const About = () => (
       Accusamus maxime explicabo soluta, enim sequi repellendus eius deleniti
       vero distinctio voluptatem.
     </p>
-  </>
+  </section>
 )
