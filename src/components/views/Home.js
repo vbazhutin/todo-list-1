@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from 'react-router-dom'
 
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -18,8 +19,13 @@ export const Home = () => (
         <div className="container">
           <h1 className="title">Todo List!</h1>
           <div className="flex flex--align-center flex--column">
-            <button className="button is-primary my-2">Get Started</button>
-            <button className="button is-small my-2">Login</button>
+            <Link to="/login">
+              <button className="button is-small my-2" >Login</button>
+            </Link>
+
+            <Link to="/todos">
+              <button className="button is-primary my-2">Get Started</button>
+            </Link>
           </div>
         </div>
       </div>
