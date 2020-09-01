@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const Options = ({ loginMode, AccHandler }) => {
+export const Options = ({ forgotMode, loginMode, AccHandler }) => {
 
 
 
@@ -11,6 +11,10 @@ export const Options = ({ loginMode, AccHandler }) => {
         {loginMode ? "Create an account" : "Already have an account?"}
       </button>
 
+      {loginMode && forgotMode ? (
+        <button className="button mt-4 ml-2" onClick={AccHandler}>Forgot Password?</button>
+      ) : null}
+    </div>
   )
 }
 
@@ -18,5 +22,5 @@ export const Options = ({ loginMode, AccHandler }) => {
 
 Options.propTypes = {
   loginMode: PropTypes.bool,
-  createAccHandler: PropTypes.func,
+  AccHandler: PropTypes.func,
 }

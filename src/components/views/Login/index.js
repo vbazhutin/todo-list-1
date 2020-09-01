@@ -8,11 +8,16 @@ import { Options } from './Options'
 
 export const Login = () => {
   const location = useLocation()
+  const [forgotMode, setForgotMode] = useState(true)
   const [loginMode, setLoginMode] = useState(location.search.slice(1) === "login")
 
   const AccHandler = (event) => {
-    setLoginMode(prevLogin => !prevLogin)
-    console.log(event.target.innerText)
+    const text = event.target.innerText
+    if (text.includes('Create')) {
+      setLoginMode(prevLogin => !prevLogin)
+    } else {(text.includes('Forgot'))
+      setForgotMode(prev => !prev)
+    }
   }
 
   return (
@@ -50,32 +55,33 @@ export const Login = () => {
             </div>
           ) : null}
 
-          <>
-            <div className="field">
-              <label htmlFor="email">Email</label>
-              <div className="control">
-                <Field name="email" type="email" />
-                <p className="help is-danger">
-                  <ErrorMessage name="email" />
-                </p>
-              </div>
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <div className="control">
+              <Field name="email" type="email" />
+              <p className="help is-danger">
+                <ErrorMessage name="email" />
+              </p>
             </div>
+          </div>
 
+          {!forgotMode ? (
             <div className="field">
+              <label htmlFor="pass">Password</label>
               <div className="control">
-                <label htmlFor="pass">Password</label>
                 <Field name="pass" type="password" />
                 <p className="help is-danger">
                   <ErrorMessage name="pass" />
                 </p>
               </div>
             </div>
-          </>
+          ) : null}
+
 
           <button>Submit</button>
         </Form>
       </Formik>
-      <Options loginMode={loginMode} AccHandler={AccHandler}/>
+      <Options loginMode={loginMode} forgotMode={forgotMode} AccHandler={AccHandler} />
     </section>
   )
 }
