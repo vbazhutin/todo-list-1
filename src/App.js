@@ -21,6 +21,7 @@ export const App = () => {
       {/* TODO: Move this behind 'login' system. */}
       <TodoList />
       </Route>
+      <Footer />
     </Router>
   )
 }
