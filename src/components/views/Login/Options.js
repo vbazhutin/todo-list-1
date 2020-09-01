@@ -1,14 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export const Options = ({ loginMode, createAccHandler }) => {
+export const Options = ({ loginMode, AccHandler }) => {
 
 
 
   return (
-    <button className="button mt-3 ml-2">
-      {loginMode ? "Create an account" : "Already have an account?"}
-    </button>
+    <div>
+      <button className="button mt-4 ml-2" onClick={AccHandler}>
+        {loginMode ? "Create an account" : "Already have an account?"}
+      </button>
+
   )
 }
 

@@ -10,8 +10,9 @@ export const Login = () => {
   const location = useLocation()
   const [loginMode, setLoginMode] = useState(location.search.slice(1) === "login")
 
-  const createAccHandler = () => {
-    return 'works'
+  const AccHandler = (event) => {
+    setLoginMode(prevLogin => !prevLogin)
+    console.log(event.target.innerText)
   }
 
   return (
@@ -74,7 +75,7 @@ export const Login = () => {
           <button>Submit</button>
         </Form>
       </Formik>
-      <Options loginMode={loginMode} createAccHandler={createAccHandler}/>
+      <Options loginMode={loginMode} AccHandler={AccHandler}/>
     </section>
   )
 }
