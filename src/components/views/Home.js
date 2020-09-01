@@ -12,7 +12,7 @@ export const Home = () => (
               <button className="button is-small my-2" >Login</button>
             </Link>
 
-            <Link to="/todos">
+            <Link to="/login">
               <button className="button is-primary my-2">Get Started</button>
             </Link>
           </div>

@@ -4,13 +4,18 @@ import { Formik, Form, Field, ErrorMessage } from "formik"
 import { useLocation } from 'react-router-dom'
 import * as Yup from 'yup'
 
+import { Options } from './Options'
 
 export const Login = () => {
   const location = useLocation()
   const [loginMode, setLoginMode] = useState(location.search.slice(1) === "login")
 
+  const createAccHandler = () => {
+    return 'works'
+  }
+
   return (
-    <section className="center section">
+    <section className="box center section">
       <h2 className="has-text-centered title">
         {loginMode ? "Login" : "Create account"}
       </h2>
@@ -26,12 +31,10 @@ export const Login = () => {
           pass: Yup.string().min(6).required("Password is required")
         })}
         onSubmit={(values, { setSubmitting }) => {
-
           // This is like utility fxn. that gathers all values
           console.log("submission", values)
           setSubmitting(false)
-        }
-        }
+        }}
       >
         <Form className="box">
           {!loginMode ? (
@@ -71,6 +74,7 @@ export const Login = () => {
           <button>Submit</button>
         </Form>
       </Formik>
+      <Options loginMode={loginMode} createAccHandler={createAccHandler}/>
     </section>
   )
 }
