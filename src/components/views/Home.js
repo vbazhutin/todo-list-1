@@ -8,7 +8,7 @@ export const Home = () => (
         <div className="container">
           <h1 className="title">Todo List!</h1>
           <div className="flex flex--align-center flex--column">
-            <Link to="/login">
+            <Link to="/login?login">
               <button className="button is-small my-2" >Login</button>
             </Link>
 
