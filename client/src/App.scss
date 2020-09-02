@@ -1,5 +1,11 @@
 @import "./shared";
 
+.center {
+  margin: 0 auto;
+  max-width: 500px;
+  width: 90vw;
+}
+
 .flex {
   display: flex;
 }
@@ -12,12 +18,24 @@
   flex-direction: column;
 }
 
-// Bulma
+// Modified Bulma
+.box {
+  max-width: 550px;
+}
+
 .hero {
-  background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center center fixed;
+  background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center
+    center fixed;
   background-size: cover;
 }
 
 .hero-body {
   background: rgba(255, 255, 255, 0.8);
+}
+
+@media screen and (min-width: $tablet) {
+  // TODO: Resolve text centering when limiting width
+  .hero.is-fullheight {
+    min-height: 40vh;
+  }
 }
