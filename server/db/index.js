@@ -27,3 +27,11 @@ export const findTodosByUser = async (user) => {
     throw new Error(err);
   }
 };
+
+export const addTodoByUser = async (todo) => {
+  try {
+    return await client.db('todos').collection('todos').insertOne(todo);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
