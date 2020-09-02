@@ -2,7 +2,7 @@ import React from "react"
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-import { TodoList, Home, Login, Footer, Four04 } from "./components"
+import { TodoList, Home, Login, Footer, Four04, Header } from "./components"
 
 import "./App.scss"
 
@@ -10,16 +10,18 @@ export const App = () => {
   return (
     <Router>
       <Switch>
-        <Route exact={true} path="/">
+        <Route exact path="/">
+          <Header />
           <Home />
         </Route>
 
-        <Route exact={true} path="/login">
+        <Route exact path="/login">
+          <Header />
           <Login />
         </Route>
 
-        <Route exact={true} path="/todos">
-          {/* TODO: Move this behind 'login' system. */}
+        <Route exact path="/todos">
+          <Header />
           <TodoList />
         </Route>
 
@@ -28,7 +30,6 @@ export const App = () => {
         </Route>
 
       </Switch>
-
       <Footer />
     </Router>
   )

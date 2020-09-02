@@ -1,20 +1,23 @@
 import React from "react"
-import { Link } from 'react-router-dom'
+
+import { Link } from "react-router-dom"
+
+import logo from "logo.svg"
 
 export const Home = () => (
   <>
-    <div className="hero is-fullheight has-text-centered">
-      <div className="hero-body">
+    <div className="hero hero--home is-fullheight has-text-centered">
+      <div className="hero-body hero-body--home">
         <div className="container">
-          <h1 className="title">Todo List!</h1>
           <div className="flex flex--align-center flex--column">
-            <Link to="/login?login">
-              <button className="button is-small my-2" >Login</button>
-            </Link>
-
-            <Link to="/login">
-              <button className="button is-primary my-2">Get Started</button>
-            </Link>
+            <img
+              src={logo}
+              alt="Logo from FreePik for TodoList"
+              className="image is-64x64 mb-4"
+            />
+            <h1 className="title">Todo List!</h1>
+            <Link className="button is-primary my-2" to="/login">Get Started</Link>
+            <Link className="button is-small my-2" to="/login?login">Login</Link>
           </div>
         </div>
       </div>
@@ -31,9 +34,5 @@ export const Home = () => (
         </p>
       </div>
     </section>
-
-    <div>
-      <div className="divider">Let&apos;s Connect!</div>
-    </div>
   </>
 )

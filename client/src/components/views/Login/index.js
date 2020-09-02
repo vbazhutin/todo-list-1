@@ -8,20 +8,22 @@ import { Options } from './Options'
 
 export const Login = () => {
   const location = useLocation()
-  const [forgotMode, setForgotMode] = useState(true)
-  const [loginMode, setLoginMode] = useState(location.search.slice(1) === "login")
+  const [forgotMode, setForgotMode] = useState(false)
+  const [loginMode, setLoginMode] = useState(location.search.includes("login"))
 
   const AccHandler = (event) => {
     const text = event.target.innerText
-    if (text.includes('Create')) {
-      setLoginMode(prevLogin => !prevLogin)
-    } else {(text.includes('Forgot'))
+    if (text.includes('Forgot')) {
       setForgotMode(prev => !prev)
+
+    } else {
+      setForgotMode(false)
+      setLoginMode(prevLogin => !prevLogin)
     }
   }
 
   return (
-    <section className="box center section">
+    <section className="box center mt-4 section">
       <h2 className="has-text-centered title">
         {loginMode ? "Login" : "Create account"}
       </h2>
@@ -42,11 +44,11 @@ export const Login = () => {
           setSubmitting(false)
         }}
       >
-        <Form className="box">
+        <Form>
           {!loginMode ? (
             <div className="field">
-              <label htmlFor="name">Name</label>
-              <div className="control">
+              <label htmlFor="name" className="ml-2">Name</label>
+              <div className="control mx-2 my-1">
                 <Field name="name" type="text" />
                 <p className="help is-danger">
                   <ErrorMessage name="name" />
@@ -56,8 +58,8 @@ export const Login = () => {
           ) : null}
 
           <div className="field">
-            <label htmlFor="email">Email</label>
-            <div className="control">
+            <label htmlFor="email" className="ml-2">Email</label>
+            <div className="control mx-2 my-1">
               <Field name="email" type="email" />
               <p className="help is-danger">
                 <ErrorMessage name="email" />
@@ -67,8 +69,8 @@ export const Login = () => {
 
           {!forgotMode ? (
             <div className="field">
-              <label htmlFor="pass">Password</label>
-              <div className="control">
+              <label htmlFor="pass" className="ml-2">Password</label>
+              <div className="control mx-2 my-1">
                 <Field name="pass" type="password" />
                 <p className="help is-danger">
                   <ErrorMessage name="pass" />
@@ -78,7 +80,7 @@ export const Login = () => {
           ) : null}
 
 
-          <button>Submit</button>
+          <button type="submit" className="button is-success ml-2 mt-2">Submit</button>
         </Form>
       </Formik>
       <Options loginMode={loginMode} forgotMode={forgotMode} AccHandler={AccHandler} />
