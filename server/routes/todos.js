@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { findTodosByUser, addTodoByUser, toggleCompletion } from '../db';
+import {
+  findTodosByUser, addTodoByUser, toggleCompletion, deleteTodo,
+} from '../db';
 
 const router = new Router();
 
-router.post('/', async (body, res) => {
+router.post('/', async ({ body }, res) => {
   try {
     const mongoRes = await findTodosByUser(body);
     res.status(201);
@@ -26,9 +28,20 @@ router.post('/add', async ({ body }, res) => {
   }
 });
 
-router.post('/toggle-complete', async ({ body }, res) => {
+router.patch('/toggle-complete', async ({ body }, res) => {
   try {
-    const mongoRes = await toggleCompletion(body.todo, body.completed);
+    const mongoRes = await toggleCompletion(body.todo, body.completion);
+    console.log(body);
+    res.status(204);
+    res.send(mongoRes);
+  } catch (err) {
+    res.status(500);
+  }
+});
+
+router.delete('/', async ({ body }, res) => {
+  try {
+    const mongoRes = await deleteTodo(body);
     console.log(body);
     res.status(204);
     res.send(mongoRes);

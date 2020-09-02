@@ -1,12 +1,13 @@
 import client from './client';
 
-export const addUser = async ({ newUser: email }) => {
+export const addUser = async (newUser) => {
   try {
-    const userExists = await client.db('todos').collection('users').findOne({ email }).toArray();
+    const { email } = newUser;
+    const userExists = await client.db('todos').collection('users').findOne({ email });
     if (!userExists) {
       return await client.db('todos').collection('users').insertOne(newUser);
     }
-    throw new Error('User alrady exists!');
+    throw new Error('User already exists!');
   } catch (err) {
     throw new Error(err);
   }
@@ -14,7 +15,8 @@ export const addUser = async ({ newUser: email }) => {
 
 export const loginUser = async (user) => {
   try {
-    return await client.db('todos').collection('users').find(user).toArray();
+    console.log('user', user);
+    return await client.db('todos').collection('users').findOne(user);
   } catch (err) {
     throw new Error(err);
   }
@@ -38,7 +40,15 @@ export const addTodoByUser = async (todo) => {
 
 export const toggleCompletion = async (todo, completionStatus) => {
   try {
-    return await client.db('todos').collection('todos').updateOne(todo, { $set: completionStatus });
+    return await client.db('todos').collection('todos').updateOne(todo, { $set: { completed: completionStatus } });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+export const deleteTodo = async (todo) => {
+  try {
+    return await client.db('todos').collection('todos').deleteOne(todo);
   } catch (err) {
     throw new Error(err);
   }
