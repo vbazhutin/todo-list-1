@@ -102,11 +102,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var dote
 /*!*********************!*\
   !*** ./db/index.js ***!
   \*********************/
-/*! exports provided: addUser, loginUser */
+/*! exports provided: addUser, loginUser, findTodosByUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"addUser\", function() { return addUser; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loginUser\", function() { return loginUser; });\n/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client */ \"./db/client.js\");\n\n\nconst addUser = async ({ newUser: email }) => {\n  try {\n    const userExists = await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('users').findOne({ email }).toArray();\n    if (!userExists) {\n      return await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('users').insertOne(newUser);\n    }\n    throw new Error('User alrady exists!');\n  } catch (err) {\n    throw new Error(err);\n  }\n};\n\nconst loginUser = async (user) => {\n  try {\n    return await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('users').find(user).toArray();\n  } catch (err) {\n    throw new Error(err);\n  }\n};\n\n\n//# sourceURL=webpack:///./db/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"addUser\", function() { return addUser; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"loginUser\", function() { return loginUser; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"findTodosByUser\", function() { return findTodosByUser; });\n/* harmony import */ var _client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./client */ \"./db/client.js\");\n\n\nconst addUser = async ({ newUser: email }) => {\n  try {\n    const userExists = await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('users').findOne({ email }).toArray();\n    if (!userExists) {\n      return await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('users').insertOne(newUser);\n    }\n    throw new Error('User alrady exists!');\n  } catch (err) {\n    throw new Error(err);\n  }\n};\n\nconst loginUser = async (user) => {\n  try {\n    return await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('users').find(user).toArray();\n  } catch (err) {\n    throw new Error(err);\n  }\n};\n\nconst findTodosByUser = async (user) => {\n  try {\n    return await _client__WEBPACK_IMPORTED_MODULE_0__[\"default\"].db('todos').collection('todos').find(user).toArray();\n  } catch (err) {\n    throw new Error(err);\n  }\n};\n\n\n//# sourceURL=webpack:///./db/index.js?");
 
 /***/ }),
 
@@ -3592,6 +3592,18 @@ eval("module.exports = function(module) {\n\tif (!module.webpackPolyfill) {\n\t\
 
 /***/ }),
 
+/***/ "./routes/todos.js":
+/*!*************************!*\
+  !*** ./routes/todos.js ***!
+  \*************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _db__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../db */ \"./db/index.js\");\n\n\n\nconst router = new express__WEBPACK_IMPORTED_MODULE_0__[\"Router\"]();\n\nrouter.post('/', async (body, res) => {\n  try {\n    const mongoRes = await Object(_db__WEBPACK_IMPORTED_MODULE_1__[\"findTodosByUser\"])(body);\n    res.status(201);\n    res.send(mongoRes);\n  } catch (err) {\n    res.status(500);\n    res.json(err);\n  }\n  res.send('<h1>Testing users get!</h1>');\n});\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (router);\n\n\n//# sourceURL=webpack:///./routes/todos.js?");
+
+/***/ }),
+
 /***/ "./routes/users.js":
 /*!*************************!*\
   !*** ./routes/users.js ***!
@@ -3612,7 +3624,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var expr
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cors */ \"./node_modules/cors/lib/index.js\");\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dotenv */ \"./node_modules/dotenv/lib/main.js\");\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dotenv__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _routes_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes/users */ \"./routes/users.js\");\n\n\n\n\n\ndotenv__WEBPACK_IMPORTED_MODULE_2___default.a.config();\n\nconst app = express__WEBPACK_IMPORTED_MODULE_1___default()();\n\napp.get('/', (_, res) => {\n  res.send('<h1>Hello from Express</h1>');\n});\n\napp.use(cors__WEBPACK_IMPORTED_MODULE_0___default()());\n\napp.use(express__WEBPACK_IMPORTED_MODULE_1___default.a.json());\n\napp.use('/users', _routes_users__WEBPACK_IMPORTED_MODULE_3__[\"default\"]);\n\napp.listen(process.env.PORT || 5000);\n\n\n//# sourceURL=webpack:///./server.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! cors */ \"./node_modules/cors/lib/index.js\");\n/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! express */ \"./node_modules/express/index.js\");\n/* harmony import */ var express__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(express__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! dotenv */ \"./node_modules/dotenv/lib/main.js\");\n/* harmony import */ var dotenv__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(dotenv__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _routes_users__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./routes/users */ \"./routes/users.js\");\n/* harmony import */ var _routes_todos__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./routes/todos */ \"./routes/todos.js\");\n\n\n\n\n\n\ndotenv__WEBPACK_IMPORTED_MODULE_2___default.a.config();\n\nconst app = express__WEBPACK_IMPORTED_MODULE_1___default()();\n\napp.get('/', (_, res) => {\n  res.send('<h1>Hello from Express</h1>');\n});\n\napp.use(cors__WEBPACK_IMPORTED_MODULE_0___default()());\n\napp.use(express__WEBPACK_IMPORTED_MODULE_1___default.a.json());\n\napp.use('/users', _routes_users__WEBPACK_IMPORTED_MODULE_3__[\"default\"]);\napp.use('/todos', _routes_todos__WEBPACK_IMPORTED_MODULE_4__[\"default\"]);\n\napp.listen(process.env.PORT || 5000);\n\n\n//# sourceURL=webpack:///./server.js?");
 
 /***/ }),
 
