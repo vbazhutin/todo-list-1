@@ -35,3 +35,11 @@ export const addTodoByUser = async (todo) => {
     throw new Error(err);
   }
 };
+
+export const toggleCompletion = async (todo, completionStatus) => {
+  try {
+    return await client.db('todos').collection('todos').updateOne(todo, { $set: completionStatus });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
