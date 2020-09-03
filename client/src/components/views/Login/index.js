@@ -46,44 +46,46 @@ export const Login = () => {
           setSubmitting(false)
         }}
       >
-        <Form>
-          {!loginMode ? (
+        {({ isSubmitting }) => (
+          <Form>
+            {!loginMode ? (
+              <div className="field">
+                <label htmlFor="name" className="ml-2">Name</label>
+                <div className="control mx-2 my-1">
+                  <Field name="name" type="text" />
+                  <p className="help is-danger">
+                    <ErrorMessage name="name" />
+                  </p>
+                </div>
+              </div>
+            ) : null}
+
             <div className="field">
-              <label htmlFor="name" className="ml-2">Name</label>
+              <label htmlFor="email" className="ml-2">Email</label>
               <div className="control mx-2 my-1">
-                <Field name="name" type="text" />
+                <Field name="email" type="email" />
                 <p className="help is-danger">
-                  <ErrorMessage name="name" />
+                  <ErrorMessage name="email" />
                 </p>
               </div>
             </div>
-          ) : null}
 
-          <div className="field">
-            <label htmlFor="email" className="ml-2">Email</label>
-            <div className="control mx-2 my-1">
-              <Field name="email" type="email" />
-              <p className="help is-danger">
-                <ErrorMessage name="email" />
-              </p>
-            </div>
-          </div>
-
-          {!forgotMode ? (
-            <div className="field">
-              <label htmlFor="pass" className="ml-2">Password</label>
-              <div className="control mx-2 my-1">
-                <Field name="pass" type="password" />
-                <p className="help is-danger">
-                  <ErrorMessage name="pass" />
-                </p>
+            {!forgotMode ? (
+              <div className="field">
+                <label htmlFor="pass" className="ml-2">Password</label>
+                <div className="control mx-2 my-1">
+                  <Field name="pass" type="password" />
+                  <p className="help is-danger">
+                    <ErrorMessage name="pass" />
+                  </p>
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
 
 
-          <button type="submit" className="button is-success ml-2 mt-2">Submit</button>
-        </Form>
+            <button type="submit" className="button is-success ml-2 mt-2" disabled={isSubmitting}>Submit</button>
+          </Form>
+          )}
       </Formik>
       <Options loginMode={loginMode} forgotMode={forgotMode} AccHandler={AccHandler} />
     </section>
