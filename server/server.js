@@ -1,8 +1,11 @@
-import cors from 'cors';
 import express from 'express';
+
+import cors from 'cors';
+
 import dotenv from 'dotenv';
-import users from './routes/users';
+
 import todos from './routes/todos';
+import users from './routes/users';
 
 dotenv.config();
 
@@ -13,10 +16,11 @@ app.get('/', (_, res) => {
 });
 
 app.use(cors());
-
 app.use(express.json());
 
-app.use('/users', users);
 app.use('/todos', todos);
+app.use('/users', users);
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT, () => {
+  console.log('Server 🏃🏽‍♂️');
+});
