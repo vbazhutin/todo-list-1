@@ -1,17 +1,20 @@
 import { Router } from 'express';
-import { addUser, loginUser } from '../db';
+
+import { addUser, getUser } from '../db';
 
 const router = new Router();
 
 router.get('/', (_, res) => {
-  res.send('<h1>Testing users get!</h1>');
+  res.send('<h1>You have reached users test route!</h1>');
 });
 
-router.post('/create', async ({ body }, res) => {
+router.get('/:uid', async ({ params }, res) => {
   try {
-    const mongoRes = await addUser(body);
-    console.log(body);
-    res.status(201);
+    const mongoRes = await getUser(params);
+    if (!mongoRes) {
+      throw new Error('User not found!');
+    }
+    res.status(200);
     res.json(mongoRes);
   } catch (err) {
     res.status(500);
@@ -19,11 +22,11 @@ router.post('/create', async ({ body }, res) => {
   }
 });
 
-router.post('/login', async ({ body }, res) => {
+router.post('/create', async ({ body }, res) => {
   try {
-    const mongoRes = await loginUser(body);
-    res.status(200);
-    res.send(mongoRes);
+    const mongoRes = await addUser(body);
+    res.status(201);
+    res.json(mongoRes);
   } catch (err) {
     res.status(500);
     res.json(err);

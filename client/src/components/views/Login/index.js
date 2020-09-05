@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
-// This is an outer function wrapping an innner function that retuns out the 'api methods'
+// This is an outer function wrapping an inner function that returns out the 'api methods'
 import api from "api"
 import auth from "auth"
 
@@ -33,7 +33,7 @@ export const Login = () => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        history.push("/todos", { currentUser: user.email })
+        history.push("/todos", { currentUser: user.uid })
       }
     })
   }, [history])
@@ -70,9 +70,12 @@ export const Login = () => {
           } else if (loginMode) {
             auth
               .signInWithEmailAndPassword(email, pass)
-              .then(() => {
+              .then(async ({ user: { uid } }) => {
                 setSubmitting(false)
-                history.push("/todos", { currentUser: email })
+                // Got the user - we need the name from the database
+                const { name } = await usersAPI.show(uid)
+
+                history.push("/todos", { uid, name })
               })
               .catch((err) => {
                 console.error(err)
@@ -80,16 +83,21 @@ export const Login = () => {
           } else {
             auth
               .createUserWithEmailAndPassword(email, pass)
-              .then(() => {
-                usersAPI.create({ email, password: pass })
-                setSubmitting(false)
-
-                // TODO: Use our api to send 'name' and any other deets over to Mongo
-                // After this is sent to our Mongo...
-                // try-catch
-                // history.push("/todos", { currentUser: email })
+              .then(({ user: { uid } }) => {
+                // In 'then' - means we have a user.
+                // Send to Mongo the 'uid' and 'name'.
+                try {
+                  usersAPI.create({ uid, name }).then(() => {
+                    // TODO: Check Y this may be causing a mem 🧠 leak
+                    setSubmitting(false)
+                    history.push("/todos", { uid, name })
+                  })
+                } catch (err) {
+                  console.error(err)
+                }
               })
               .catch((err) => {
+                setSubmitting(false)
                 console.error(err.message)
               })
           }

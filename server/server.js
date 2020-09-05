@@ -22,5 +22,5 @@ app.use('/todos', todos);
 app.use('/users', users);
 
 app.listen(process.env.PORT, () => {
-  console.log('Server 🏃🏽‍♂️');
+  console.log('Server is running');
 });
